@@ -1,0 +1,27 @@
+<div ng-controller = "DashboardController">
+
+    <form id="search">
+
+        <label for="conditionEntry">Condition:</label>
+        <select ng-model="filterData.condition_id" id="conditionEntry">
+            <option ng-repeat="condition in allconditions" value="{{condition.condition_id}}">{{condition.name}}</option>
+        </select>
+        <label for="startDate">Start Date:</label>
+        <input ng-model="filterData.start_date" type="date" id="startDate" name="startDate" placeholder="Enter Start Date:">
+        <label for="endDate">End Date:</label>
+        <input ng-model="filterData.end_date" type="date" id="endDate" name="endDate" placeholder="Enter End Date:">
+        <button ng-click="loadData()" id="submitSearch" class="btn btn-info">Submit</button>
+    </form>
+
+
+    <fusioncharts class="conditionChart"
+            width="600"
+            height="400"
+            type="line"
+            datasource="{{conditionChartData}}">
+    </fusioncharts>
+
+    <div ui-grid="{data: medications}" class="medicationGrid"></div>
+    <!--<div ui-grid="gridOptions" class="medicationGrid"></div>-->
+
+</div>

@@ -1,0 +1,18 @@
+.medicationGrid {
+    width: 500px;
+    height: 400px;
+    float: left;
+}
+
+.conditionChart {
+    float: left;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+.display-item {
+    float: left;
+}

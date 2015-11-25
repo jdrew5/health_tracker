@@ -1,0 +1,17 @@
+<div ng-controller="MedicationsController">
+
+    <div class="container">
+        <div ng-repeat="medication in medications" class="row">
+            <div class="display-item">{{medication.medication_id}}</div>
+            <div class="display-item">{{medication.name}}</div>
+            <div class="display-item">{{medication.suggested_dose}}</div>
+            <div class="display-item">{{medication.suggested_timing}}</div>
+            <div class="display-item">{{medication.current_ind}}</div>
+            <div class="display-item">{{medication.patient_id}}</div>
+            <div class="display-item">{{medication.uom}}</div>
+            <button ng-click="editMedication(medication)" id="editMedication" class="btn btn-info row">Edit</button>
+        </div>
+        <button ng-click="addMedication()" id="addMedication" class="btn btn-info row">Add Medication</button>
+    </div>
+
+</div>

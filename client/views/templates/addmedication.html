@@ -1,0 +1,28 @@
+<div ng-controller="MedicationsController">
+
+    <ng-form name="medicationForm" class="form-inline" novalidate>
+
+        <div class="form-group">
+
+            <label>Medication Name:</label>
+            <input type="text" class="form-control" name="addMedication" ng-model="medication.name" required>
+
+            <label>Suggested Dose:</label>
+            <input type="text" class="form-control" name="suggestedDose" ng-model="medication.suggested_dose" required>
+
+            <label>Suggested Timing:</label>
+            <input type="text" class="form-control" name="suggestedTiming" ng-model="medication.suggested_timing" required>
+
+            <label>Current Indicator:</label>
+            <input type="checkbox" class="form-control" name="currentInd" ng-model="medication.current_ind" checked>
+
+            <label>Unit of Measure:</label>
+            <input type="text" class="form-control" name="Uom" ng-model="medication.uom" required>
+
+        </div>
+        <button ng-click="insertMedication(medication)" id="insertMedication" class="btn btn-info"
+                ng-disabled="medicationForm.$invalid">Insert Medications</button>
+    </ng-form>
+
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+</div>
