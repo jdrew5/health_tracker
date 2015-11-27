@@ -50,9 +50,11 @@ router.get('/medications', function(req,res){
 router.post('/medications', function(req,res){
 
     var addMedicationEntry = {
+        "name": req.body.name,
+        "suggested_dose": req.body.suggested_dose,
+        "suggested_timing": req.body.suggested_timing,
+        "current_ind": req.body.current_ind,
         "patient_id" : req.body.patient_id,
-        "medication_id": req.body.medication_id,
-        "dose_given": req.body.dose_given,
         "uom": req.body.uom
     };
 
@@ -60,10 +62,11 @@ router.post('/medications', function(req,res){
 
     pg.connect(connectionString, function (err, client) {
 
-        client.query("INSERT INTO medication (entry_date, patient_id, medication_id, dose_given, uom) \
-                    VALUES ($1, $2, $3, $4, $5) RETURNING medication_entry_id",
-            [addMedicationEntry.entry_date, addMedicationEntry.patient_id,
-                addMedicationEntry.medication_id, addMedicationEntry.dose_given, addMedicationEntry.uom],
+        client.query("INSERT INTO medication (name, suggested_dose, suggested_timing, current_ind, patient_id, uom) \
+                    VALUES ($1, $2, $3, $4, $5, $6) RETURNING medication_id;",
+            [addMedicationEntry.name, addMedicationEntry.suggested_dose,
+                addMedicationEntry.suggested_timing, addMedicationEntry.current_ind,
+                addMedicationEntry.patient_id, addMedicationEntry.uom],
             function(err, result) {
                 if(err) {
                     console.log("Error inserting data: ", err);
@@ -71,8 +74,49 @@ router.post('/medications', function(req,res){
                 }
                 res.send(true);
             });
+        console.log("inserting medication", addMedicationEntry);
+
     });
 
+});
+
+// Add medications to medication_entry
+router.put('/medications', function(req,res){
+
+    var editMedicationEntry = {
+        "medication_id": req.body.medication_id,
+        "name": req.body.name,
+        "suggested_dose": req.body.suggested_dose,
+        "suggested_timing": req.body.suggested_timing,
+        "current_ind": req.body.current_ind,
+        "patient_id" : req.body.patient_id,
+        "uom": req.body.uom
+    };
+
+    console.log(editMedicationEntry);
+
+    pg.connect(connectionString, function (err, client) {
+
+        client.query("UPDATE medication \
+                        SET name = $1, \
+                        suggested_dose = $2, \
+                        suggested_timing = $3, \
+                        current_ind = $4, \
+                        patient_id = $5, \
+                        uom = $6 \
+                    WHERE medication_id = $7;",
+            [editMedicationEntry.name, editMedicationEntry.suggested_dose,
+                editMedicationEntry.suggested_timing, editMedicationEntry.current_ind,
+                editMedicationEntry.patient_id, editMedicationEntry.uom,
+                editMedicationEntry.medication_id],
+            function(err, result) {
+                if(err) {
+                    console.log("Error updating data: ", err);
+                    res.send(false);
+                }
+                res.send(true);
+            });
+    });
 });
 
 module.exports = router;

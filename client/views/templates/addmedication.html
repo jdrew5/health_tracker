@@ -1,6 +1,6 @@
-<div ng-controller="MedicationsController">
+<!--<div ng-controller="MedicationsController">-->
 
-    <ng-form name="medicationForm" class="form-inline" novalidate>
+    <ng-form name="medicationForm" class="" novalidate>
 
         <div class="form-group">
 
@@ -22,7 +22,9 @@
         </div>
         <button ng-click="insertMedication(medication)" id="insertMedication" class="btn btn-info"
                 ng-disabled="medicationForm.$invalid">Insert Medications</button>
+        <button class="btn btn-primary" type="button" ng-click="ok(medication)">OK</button>
+        <button class="btn btn-primary" type="button" ng-click="cancel()">cancel</button>
     </ng-form>
 
-    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-</div>
+
+<!--</div>-->

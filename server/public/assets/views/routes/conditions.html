@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<p>conditions page</p>
-</body>
-</html>
+<div ng-controller="ConditionsController">
+
+    <div class="container">
+        <div ng-repeat="condition in conditions" class="row">
+            <div class="display-item">{{condition.condition_id}}</div>
+            <div class="display-item">{{condition.name}}</div>
+            <div class="display-item">{{condition.current_ind}}</div>
+            <div class="display-item">{{condition.patient_id}}</div>
+            <button ng-click="editCondition(condition)" id="editCondition" class="btn btn-info row">Edit</button>
+        </div>
+        <button ng-click="addCondition()" id="addCondition" class="btn btn-info row">Add Condition</button>
+    </div>
+
+</div>

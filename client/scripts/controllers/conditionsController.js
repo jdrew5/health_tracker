@@ -1,25 +1,25 @@
-myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", function($scope, $http, $uibModal){
+myApp.controller('ConditionsController', ["$scope", "$http", "$uibModal", function($scope, $http, $uibModal){
 
-    $scope.medications = [];
-    $scope.medication = {};
+    $scope.conditions = [];
+    $scope.condition = {};
 
     var patient = {patient_id: 1};
 
-    $scope.getMedications = function() {
-        $http.get('/medications/medications', {params: patient}).then(function(response){
-            $scope.medications = response.data;
-            console.log("getting meds...: ", $scope.medications);
+    $scope.getConditions = function() {
+        $http.get('/conditions/conditions', {params: patient}).then(function(response){
+            $scope.conditions = response.data;
+            console.log("getting meds...: ", $scope.conditions);
         });
     };
 
-    $scope.getMedications();
+    $scope.getConditions();
 
-    $scope.addMedication = function() {
+    $scope.addCondition = function() {
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: '../assets/views/templates/addmedication.html',
-            controller: 'AddMedicationController',
+            templateUrl: '../assets/views/templates/addcondition.html',
+            controller: 'AddConditionController',
             size: 'lg',
             resolve: {
                 items: function () {
@@ -32,7 +32,7 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", funct
 
         modalInstance.result.then(function (returnValue) {
             if(returnValue=="ok"){
-                $scope.getMedications();
+                $scope.getConditions();
             }
         }, function () {
             //$log.info('Modal dismissed at: ' + new Date());
@@ -40,23 +40,23 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", funct
 
     };
 
-    $scope.editMedication = function(medication) {
+    $scope.editCondition = function(condition) {
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
-            templateUrl: '../assets/views/templates/editmedication.html',
-            controller: 'EditMedicationController',
+            templateUrl: '../assets/views/templates/editcondition.html',
+            controller: 'EditConditionController',
             size: 'lg',
             resolve: {
                 items: function () {
-                    return medication;
+                    return condition;
                 }
             }
         });
 
         modalInstance.result.then(function (returnValue) {
             if(returnValue=="ok"){
-                $scope.getMedications();
+                $scope.getConditions();
             }
         }, function () {
             //$log.info('Modal dismissed at: ' + new Date());
