@@ -8,7 +8,6 @@ myApp.controller('ConditionsController', ["$scope", "$http", "$uibModal", functi
     $scope.getConditions = function() {
         $http.get('/conditions/conditions', {params: patient}).then(function(response){
             $scope.conditions = response.data;
-            console.log("getting meds...: ", $scope.conditions);
         });
     };
 

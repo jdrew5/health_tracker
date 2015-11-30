@@ -93,7 +93,7 @@ router.put('/medications', function(req,res){
         "uom": req.body.uom
     };
 
-    console.log(editMedicationEntry);
+    //console.log(editMedicationEntry);
 
     pg.connect(connectionString, function (err, client) {
 

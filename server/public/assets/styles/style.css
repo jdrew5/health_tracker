@@ -16,3 +16,7 @@ img {
 .display-item {
     float: left;
 }
+
+.patientDropDown {
+    float: right;
+}

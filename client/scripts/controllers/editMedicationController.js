@@ -6,15 +6,18 @@ myApp.controller('EditMedicationController', ["$scope", "$http", "$uibModalInsta
 
         $scope.editMedication = function(medicationData) {
 
-            $http.put('/medications/medications', medicationData).then(function(response){
-                console.log("do something after updating");
+            return $http.put('/medications/medications', medicationData).then(function(response){
+
             });
         };
 
         $scope.ok = function (medicationData) {
-            console.log("ok function ", medicationData);
-            $scope.editMedication(medicationData);
-            $uibModalInstance.close("ok");
+
+            var promise = $scope.editMedication(medicationData);
+
+            promise.then(function() {
+                $uibModalInstance.close("ok");
+            });
         };
 
         $scope.cancel = function () {

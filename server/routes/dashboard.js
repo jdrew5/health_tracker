@@ -99,7 +99,6 @@ router.get('/allconditions', function(req,res){
         patient_id: req.query.patient_id
     }
 
-    console.log("all cond qo", queryOptions);
     var results = [];
 
     //SQL Query > SELECT data from table

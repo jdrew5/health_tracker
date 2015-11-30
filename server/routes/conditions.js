@@ -65,7 +65,7 @@ router.post('/conditions', function(req,res){
                 }
                 res.send(true);
             });
-        console.log("inserting condition", addConditionEntry);
+        //console.log("inserting condition", addConditionEntry);
 
     });
 
@@ -81,7 +81,7 @@ router.put('/conditions', function(req,res){
         "patient_id" : req.body.patient_id
     };
 
-    console.log(editConditionEntry);
+    //console.log(editConditionEntry);
 
     pg.connect(connectionString, function (err, client) {
 

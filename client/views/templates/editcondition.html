@@ -1,0 +1,16 @@
+
+<ng-form name="conditionForm" class="" novalidate>
+
+    <div class="form-group">
+
+        <label>Condition Name:</label>
+        <input type="text" class="form-control" name="addCondition"
+               ng-model="conditions.name" required>
+
+        <label>Current Indicator:</label>
+        <input type="checkbox" class="form-control" name="currentInd" ng-model="conditions.current_ind">
+
+    </div>
+    <button class="btn btn-primary" type="button" ng-click="ok(conditions)" ng-disabled="conditionForm.$invalid">OK</button>
+    <button class="btn btn-primary" type="button" ng-click="cancel()">cancel</button>
+</ng-form>

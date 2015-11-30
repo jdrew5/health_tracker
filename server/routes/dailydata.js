@@ -10,7 +10,7 @@ router.get('/conditions', function(req,res){
     var queryOptions = {
         patient_id: req.query.patient_id
     }
-    //console.log("cond query opt ", queryOptions);
+
     var results = [];
 
     //SQL Query > SELECT data from table
