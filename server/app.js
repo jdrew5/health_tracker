@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 
+var passport = require('./strategies/facebook');
+var session = require('express-session');
+
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
@@ -20,6 +23,18 @@ app.use('/dailydata', dailydata);
 app.use('/medications', medications);
 app.use('/conditions', conditions);
 app.use('/patient', patient);
+
+app.use(session({
+    secret: 'secret',
+    key: 'user',
+    resave: 'true',
+    saveUninitialized: false,
+    cookie: {maxage: 600000, secure: false}
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', index);
 
 app.set("port", (process.env.PORT || 5000));
