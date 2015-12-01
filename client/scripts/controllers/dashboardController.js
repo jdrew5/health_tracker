@@ -1,4 +1,4 @@
-myApp.controller('DashboardController', ["$scope", "$http", function($scope, $http){
+myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", function($scope, $http, $localstorage){
 
     $scope.medications = [];
     $scope.conditions = [];
@@ -6,8 +6,7 @@ myApp.controller('DashboardController', ["$scope", "$http", function($scope, $ht
     $scope.conditionChartData = {};
     $scope.filterData = {};
 
-    var patient_id = 1;
-    $scope.filterData.patient_id = patient_id;
+    $scope.filterData.patient_id = $localstorage.get('patient_id');
 
     // default date filters to today and one week prior
     if(!$scope.filterData.end_date) {

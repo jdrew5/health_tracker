@@ -1,10 +1,10 @@
-myApp.controller('DailyDataController', ["$scope", "$http", function($scope, $http){
+myApp.controller('DailyDataController', ["$scope", "$http", "$localstorage", function($scope, $http, $localstorage){
 
     $scope.medications = [];
     $scope.conditions = [];
     $scope.selectedDate = {};
 
-    var patient = {patient_id: 1};
+    var patient = {patient_id: $localstorage.get('patient_id')};
 
     $scope.getConditions = function() {
         $http.get('/dailydata/conditions', {params: patient}).then(function(response){

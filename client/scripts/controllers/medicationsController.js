@@ -1,17 +1,45 @@
-myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", function($scope, $http, $uibModal){
+myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", "$localstorage", function($scope, $http, $uibModal, $localstorage){
 
     $scope.medications = [];
     $scope.medication = {};
+    $scope.gridOptions = {};
 
-    var patient = {patient_id: 1};
+    var patient = {patient_id: $localstorage.get('patient_id')};
 
     $scope.getMedications = function() {
-        $http.get('/medications/medications', {params: patient}).then(function(response){
+        return $http.get('/medications/medications', {params: patient}).then(function(response){
             $scope.medications = response.data;
         });
     };
 
-    $scope.getMedications();
+    //$scope.getMedications();
+
+    $scope.loadData = function() {
+
+        var promise = $scope.getMedications();
+
+        promise.then(function() {
+            $scope.gridOptions = {
+                columnDefs : [
+                    {name: 'Action',
+                        cellEditableCondition: false,
+                        cellTemplate: '<button ng-click="grid.appScope.editMedication(row.entity)" ' +
+                        'id="editMedication" class="btn btn-xs btn-primary">Edit</button>' },
+                    { name: 'medication_id', displayName: 'Medication ID'},
+                    { name: 'name', displayName: 'Name'},
+                    { name: 'suggested_dose', displayName: 'Suggested Dose' },
+                    { name: 'suggested_timing', displayName: 'Suggested Timing' },
+                    { name: 'uom', displayName: 'Unit of Measure' },
+                    { name: 'current_ind', displayName: 'Current Ind' },
+                    { name: 'patient_id', displayName: 'Patient ID'}],
+                data: $scope.medications
+            };
+
+        });
+
+    };
+
+    $scope.loadData();
 
     $scope.addMedication = function() {
 
@@ -31,7 +59,7 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", funct
 
         modalInstance.result.then(function (returnValue) {
             if(returnValue=="ok"){
-                $scope.getMedications();
+                $scope.loadData();
             }
         }, function () {
             //$log.info('Modal dismissed at: ' + new Date());
@@ -55,9 +83,10 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", funct
 
         modalInstance.result.then(function (returnValue) {
             if(returnValue=="ok"){
-                $scope.getMedications();
+                $scope.loadData();
             }
         }, function () {
+            $scope.loadData();
             //$log.info('Modal dismissed at: ' + new Date());
         });
     };

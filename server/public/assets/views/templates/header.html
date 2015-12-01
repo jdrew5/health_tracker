@@ -1,20 +1,19 @@
 <div ng-controller="HeaderController">
 
     <div class="container">
-        <img src = {{patient[0].image}}>
-        <div class="display-item">{{patient[0].patient_id}}</div>
-        <div class="display-item">{{patient[0].name}}</div>
-        <div class="display-item">{{patient[0].type}}</div>
-        <div class="display-item">{{patient[0].dob | date: "MM/dd/yyyy"}}</div>
+        <img src = {{selectedPatient.image}}>
+        <div class="display-item">{{selectedPatient.patient_id}}</div>
+        <div class="display-item">{{selectedPatient.name}}</div>
+        <div class="display-item">{{selectedPatient.type}}</div>
+        <div class="display-item">{{selectedPatient.dob | date: "MM/dd/yyyy"}}</div>
 
-        <button ng-click="editPatient(patient[0])" id="editPatient" class="btn btn-info">Edit</button>
+        <button ng-click="editPatient(selectedPatient)" id="editPatient" class="btn btn-info">Edit</button>
 
         <button ng-click="addPatient()" id="addPatient" class="btn btn-info">Add Patient</button>
     </div>
 
     <form name="patientDropDown" class="patientDropDown">
-        <select ng-options="patient.name for patient in patients" ng-model="selectedUser" id="patient"></select>
-        <button ng-click="" class="btn">Change</button>
+        <select ng-change="changePatient()" ng-options="patient.name for patient in patients" ng-model="selectedPatient" id="patient"></select>
     </form>
 </div>
 

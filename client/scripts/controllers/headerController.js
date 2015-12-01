@@ -1,26 +1,37 @@
-myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", function($scope, $http, $uibModal){
+myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", "$localstorage",
+    "$route", function($scope, $http, $uibModal, $localstorage, $route){
 
     $scope.patients = [];
-    $scope.patient = {};
+    $scope.selectedPatient = {};
 
-    var patient_id = 1;
-    $scope.patients.patient_id = patient_id;
-
+    // get all patients.  this fills patient drop down
     $scope.getAllPatients = function() {
-        $http.get('/patient/allpatients').then(function(response){
+        return $http.get('/patient/allpatients').then(function(response){
             $scope.patients = response.data;
         });
     };
 
-    $scope.getPatient = function() {
-        $scope.patient.patient_id = patient_id;
-        $http.get('/patient/patients', {params: $scope.patient}).then(function(response){
-            $scope.patient = response.data;
+    $scope.loadDropDown = function() {
+
+        var promise = $scope.getAllPatients();
+
+        promise.then(function() {
+            var searchTerm = $localstorage.get('patient_id'),
+                index = -1;
+            for(var i = 0, len = $scope.patients.length; i < len; i++) {
+                if ($scope.patients[i].patient_id == searchTerm) {
+                    index = i;
+                    break;
+                }
+            }
+
+            $scope.selectedPatient = $scope.patients[i];
+
         });
+
     };
 
-    $scope.getAllPatients();
-    $scope.getPatient();
+    $scope.loadDropDown();
 
     $scope.addPatient = function() {
 
@@ -40,8 +51,7 @@ myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", function($
 
         modalInstance.result.then(function (returnValue) {
             if(returnValue=="ok"){
-                $scope.getPatient();
-                $scope.getAllPatients();
+                $scope.loadDropDown();
             }
         }, function () {
             //$log.info('Modal dismissed at: ' + new Date());
@@ -50,7 +60,6 @@ myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", function($
     };
 
     $scope.editPatient = function(patient) {
-        console.log("edit patient ", patient);
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -66,14 +75,21 @@ myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", function($
 
         modalInstance.result.then(function (returnValue) {
             if(returnValue=="ok"){
-                $scope.getPatient();
-                $scope.getAllPatients();
+                $scope.loadDropDown();
             }
         }, function () {
-            console.log("cancelled?");
-            $scope.getPatient();
+            // just reload if cancel
+            $scope.loadDropDown();
             //$log.info('Modal dismissed at: ' + new Date());
         });
+    };
+
+    $scope.changePatient = function() {
+
+        $localstorage.set('patient_id', $scope.selectedPatient.patient_id);
+
+        // reload the route
+        $route.reload();
     };
 
 }]);
