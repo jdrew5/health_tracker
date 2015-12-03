@@ -1,24 +1,32 @@
-
-<ng-form name="medicationForm" class="" novalidate>
-
-    <div class="form-group">
-
-        <label>Medication Name:</label>
-        <input type="text" class="form-control" name="addMedication" ng-model="medication.name" required>
-
-        <label>Suggested Dose:</label>
-        <input type="text" class="form-control" name="suggestedDose" ng-model="medication.suggested_dose" required>
-
-        <label>Suggested Timing:</label>
-        <input type="text" class="form-control" name="suggestedTiming" ng-model="medication.suggested_timing" required>
-
-        <label>Current Indicator:</label>
-        <input type="checkbox" class="form-control" name="currentInd" ng-model="medication.current_ind" checked>
-
-        <label>Unit of Measure:</label>
-        <input type="text" class="form-control" name="Uom" ng-model="medication.uom" required>
-
+<div layout="column" ng-cloak="" class="">
+    <div layout="row" flex layout-align="center center">
+        <h2>Add Medication</h2>
     </div>
-    <button class="btn btn-primary" type="button" ng-click="ok(medication)" ng-disabled="medicationForm.$invalid">OK</button>
-    <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
-</ng-form>
+    <md-content layout-padding="">
+        <ng-form name="medicationForm" class="" novalidate>
+            <md-input-container class="md-block">
+                <label>Medication Name:</label>
+                <input type="text" class="form-control" name="addMedication" ng-model="medication.name" required>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Suggested Dose:</label>
+                <input type="text" class="form-control" name="suggestedDose" ng-model="medication.suggested_dose" required>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Suggested Timing:</label>
+                <input type="text" class="form-control" name="suggestedTiming" ng-model="medication.suggested_timing" required>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Current Indicator:</label>
+                <input type="checkbox" class="form-control" name="currentInd" ng-model="medication.current_ind" checked>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Unit of Measure:</label>
+                <input type="text" class="form-control" name="Uom" ng-model="medication.uom" required>
+            </md-input-container>
+
+            <md-button class="md-raised md-primary" type="button" ng-click="ok(medication)" ng-disabled="medicationForm.$invalid">OK</md-button>
+            <md-button class="md-raised" type="button" ng-click="cancel()">Cancel</md-button>
+        </ng-form>
+    </md-content>
+</div>

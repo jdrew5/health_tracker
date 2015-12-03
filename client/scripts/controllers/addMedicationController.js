@@ -9,13 +9,11 @@ myApp.controller('AddMedicationController', ["$scope", "$http", "$uibModalInstan
     $scope.insertMedication = function(medicationData) {
         medicationData.patient_id = patient.patient_id;
         $http.post('/medications/medications', medicationData).then(function(response){
-            //$scope.getMedications();
-            console.log("do something after inserting");
+
         });
     };
 
     $scope.ok = function (medicationData) {
-        console.log("ok function ", medicationData);
         $scope.insertMedication(medicationData);
         $uibModalInstance.close("ok");
     };

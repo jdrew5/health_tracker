@@ -5,6 +5,7 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
     $scope.allconditions = [];
     $scope.conditionChartData = {};
     $scope.filterData = {};
+    $scope.selectedCondition = {};
 
     $scope.filterData.patient_id = $localstorage.get('patient_id');
 
@@ -17,14 +18,25 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
         $scope.filterData.start_date = new Date($scope.filterData.end_date.getTime() - (60*60*24*7*1000));
     }
 
+    // get all conditions for a patient to populate drop down
     $scope.getAllConditions = function() {
-        $http.get('/dashboard/allconditions', {params: $scope.filterData}).then(function(response){
+        return $http.get('/dashboard/allconditions', {params: $scope.filterData}).then(function(response){
             $scope.allconditions = response.data;
-            $scope.filterData.condition_id = 1;
         });
     };
 
-    $scope.getAllConditions();
+    $scope.loadDropDown = function() {
+
+        var promise = $scope.getAllConditions();
+
+        promise.then(function() {
+            // default to the first item in the drop down
+            $scope.selectedCondition = $scope.allconditions[0];
+            });
+    };
+
+    $scope.loadDropDown();
+
 
     $scope.loadData = function() {
         $scope.getMedications();
@@ -32,9 +44,9 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
     };
 
     $scope.getMedications = function() {
+        $scope.filterData.condition_id = $scope.selectedCondition.condition_id;
         $http.get('/dashboard/medications', {params: $scope.filterData}).then(function(response){
             $scope.medications = response.data;
-
             //$scope.gridOptions = {
             //    headerTemplate: './views/templates/med-grid-header-template.html',
             //    data: $scope.medications
@@ -44,7 +56,9 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
 
     $scope.getMedications();
 
+    // gets condition entries for a condition between date range
     $scope.getConditions = function() {
+        $scope.filterData.condition_id = $scope.selectedCondition.condition_id;
         $http.get('/dashboard/conditions', {params: $scope.filterData}).then(function(response){
 
             $scope.conditions = response.data;
@@ -52,7 +66,7 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
             $scope.conditionChartData = {
                         chart: {
                             caption: "Condition Chart",
-                            subCaption: "",
+                            subCaption: $scope.selectedCondition.name,
                             "xAxisName": "Date",
                             "yAxisName": "Value",
 

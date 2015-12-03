@@ -1,16 +1,28 @@
-.medicationGrid {
-    width: 500px;
-    height: 400px;
-    float: left;
+/* To clear floats when they're misbehaving*/
+.clearfix:after {
+    content: " "; /* Older browser do not support empty content */
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
 }
 
-.conditionChart {
-    float: left;
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
-img {
+.patientImg {
     width: 100px;
     height: 100px;
+}
+
+.logo {
+    width: 77px;
+    height: 60px;
 }
 
 .display-item {
@@ -23,4 +35,13 @@ img {
 
 .logout {
     float: right;
+}
+
+body {
+    background-color: #f9f2f4;
+}
+
+.blah {
+    color: red;
+    background-color: red;
 }

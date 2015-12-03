@@ -12,8 +12,6 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", "$loc
         });
     };
 
-    //$scope.getMedications();
-
     $scope.loadData = function() {
 
         var promise = $scope.getMedications();
@@ -24,7 +22,8 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", "$loc
                     {name: 'Action',
                         cellEditableCondition: false,
                         cellTemplate: '<button ng-click="grid.appScope.editMedication(row.entity)" ' +
-                        'id="editMedication" class="btn btn-xs btn-primary">Edit</button>' },
+                        'id="editMedication" class="md-raised btn-xs md-primary">Edit</button>' +
+                        '<button class="md-raised brn-xs md-warn">Delete</button>' },
                     { name: 'medication_id', displayName: 'Medication ID'},
                     { name: 'name', displayName: 'Name'},
                     { name: 'suggested_dose', displayName: 'Suggested Dose' },
@@ -34,7 +33,6 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", "$loc
                     { name: 'patient_id', displayName: 'Patient ID'}],
                 data: $scope.medications
             };
-
         });
 
     };

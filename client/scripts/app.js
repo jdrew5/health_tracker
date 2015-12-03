@@ -1,4 +1,5 @@
-var myApp = angular.module("myApp", ['ngRoute', 'ng-fusioncharts', 'ui.grid', 'ui.bootstrap']);
+var myApp = angular.module("myApp", ['ngRoute', 'ng-fusioncharts', 'ui.grid', 'ui.bootstrap',
+    'ngMaterial']);
 
 myApp.config(['$routeProvider', function($routeProvider){
     $routeProvider.

@@ -48,6 +48,19 @@ module.exports = function(grunt){
                 ],
                 "dest": "server/public/vendors/"
             },
+            angularMaterial: {
+                expand: true,
+                cwd: 'node_modules',
+                src: [
+                    "angular-animate/angular-animate.min.js",
+                    "angular-aria/angular-aria.min.js",
+                    "angular-animate/angular-animate.min.js.map",
+                    "angular-aria/angular-aria.min.js.map",
+                    "angular-material/angular-material.min.js",
+                    "angular-material/angular-material.min.css"
+                ],
+                "dest": "server/public/vendors/"
+            },
             bootstrap: {
                 expand: true,
                 cwd: 'node_modules/bootstrap/dist/css',

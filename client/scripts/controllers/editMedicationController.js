@@ -1,7 +1,6 @@
 myApp.controller('EditMedicationController', ["$scope", "$http", "$uibModalInstance", "items",
     function($scope, $http, $uibModalInstance, items){
 
-        console.log("items ", items);
         $scope.meds = items;
 
         $scope.editMedication = function(medicationData) {

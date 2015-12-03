@@ -1,30 +1,31 @@
-<div ng-controller="DailyDataController" class="container">
+<div ng-controller="DailyDataController" class="" layout="column" ng-cloak>
+    <md-content layout-padding>
+        <ng-form name="dateFieldForm" class="" novalidate>
+            <md-input-container class="md-block">
+                <input ng-model="selectedDate.date" type="date" id="Date" name="Date" placeholder="Date:" required>
+                <span ng-show="dateFieldForm.Date.$error.required">Date is required.</span>
+            </md-input-container>
+        </ng-form>
 
-    <ng-form name="dateFieldForm" class="form-inline row" novalidate>
-        <label for="Date">Date:</label>
-        <input ng-model="selectedDate.date" type="date" id="Date" name="Date" placeholder="Date:" required>
-        <span ng-show="dateFieldForm.Date.$error.required">Date is required.</span>
-    </ng-form>
+        <ng-form name="conditionFieldForm" class="form-inline" novalidate>
 
-    <ng-form name="conditionFieldForm" class="form-inline" novalidate>
+            <div class="form-group" ng-repeat="condition in conditions">
 
-        <div class="form-group" ng-repeat="condition in conditions">
+                <div class="">
+                    <label>Add:</label>
+                    <input type="checkbox" class="form-control" name="addCheckbox" ng-model="condition.addCheckbox">
+                    <label>Condition:</label>
+                    <input type="text" class="form-control" name="addCondition" ng-model="condition.name" readonly>
+                    <label>Value:</label>
+                    <input type="number" class="form-control" name="addValue" ng-model="condition.addValue" ng-required="condition.addCheckbox">
+                </div>
 
-            <div class="">
-                <label>Add:</label>
-                <input type="checkbox" class="form-control" name="addCheckbox" ng-model="condition.addCheckbox">
-                <label>Condition:</label>
-                <input type="text" class="form-control" name="addCondition" ng-model="condition.name" readonly>
-                <label>Value:</label>
-                <input type="number" class="form-control" name="addValue" ng-model="condition.addValue" ng-required="condition.addCheckbox">
             </div>
+            <button ng-click="submitConditions(conditions)" id="submitConditions" class="btn btn-info row"
+                    ng-disabled="conditionFieldForm.$invalid || dateFieldForm.$invalid">Submit Conditions</button>
+        </ng-form>
 
-        </div>
-        <button ng-click="submitConditions(conditions)" id="submitConditions" class="btn btn-info row"
-                ng-disabled="conditionFieldForm.$invalid || dateFieldForm.$invalid">Submit Conditions</button>
-    </ng-form>
-
-    <ng-form name="medicationFieldForm" class="form-inline" novalidate>
+        <ng-form name="medicationFieldForm" class="form-inline" novalidate>
 
         <div class="form-group" ng-repeat="medication in medications">
 
@@ -44,5 +45,6 @@
         <button ng-click="submitMedications(medications)" id="submitMedications" class="btn btn-info"
                 ng-disabled="medicationFieldForm.$invalid || dateFieldForm.$invalid">Submit Medications</button>
     </ng-form>
+    </md-content>
 
 </div>

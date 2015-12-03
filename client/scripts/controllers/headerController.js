@@ -4,6 +4,11 @@ myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", "$localsto
     $scope.patients = [];
     $scope.selectedPatient = {};
 
+    this.openMenu = function($mdOpenMenu, ev) {
+        originatorEv = ev;
+        $mdOpenMenu(ev);
+    };
+
     // get all patients.  this fills patient drop down
     $scope.getAllPatients = function() {
         return $http.get('/patient/allpatients').then(function(response){
