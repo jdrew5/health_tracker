@@ -103,4 +103,19 @@ router.put('/conditions', function(req,res){
     });
 });
 
+router.delete('/delete:id', function(req,res){
+    pg.connect(connectionString, function (err, client) {
+        client.query("DELETE FROM condition WHERE condition_id = $1", [req.params.id],
+            function (err, result) {
+                if (err) {
+                    console.log("Error deleting data: ", err);
+                    res.send(false);
+                }
+
+                res.send(true);
+            });
+    });
+
+});
+
 module.exports = router;

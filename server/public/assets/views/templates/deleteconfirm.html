@@ -1,0 +1,14 @@
+
+<div layout="column" ng-cloak="" class="">
+    <div layout="row" flex layout-align="center center">
+        <h2>Delete Confirmation</h2>
+    </div>
+    <md-content layout-padding="">
+        <div layout="row" flex layout-align="center center">
+            <h4>Are you sure you want to delete '{{items.name}}'?</h4>
+        </div>
+
+        <md-button class="md-raised md-primary" type="button" ng-click="ok()">Yes</md-button>
+        <md-button class="md-raised" type="button" ng-click="cancel()">No</md-button>
+    </md-content>
+</div>

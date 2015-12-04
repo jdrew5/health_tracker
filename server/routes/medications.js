@@ -74,7 +74,6 @@ router.post('/medications', function(req,res){
                 }
                 res.send(true);
             });
-        console.log("inserting medication", addMedicationEntry);
 
     });
 
@@ -117,6 +116,21 @@ router.put('/medications', function(req,res){
                 res.send(true);
             });
     });
+});
+
+router.delete('/delete:id', function(req,res){
+    pg.connect(connectionString, function (err, client) {
+        client.query("DELETE FROM medication WHERE medication_id = $1", [req.params.id],
+            function (err, result) {
+                if (err) {
+                    console.log("Error deleting data: ", err);
+                    res.send(false);
+                }
+
+                res.send(true);
+            });
+    });
+
 });
 
 module.exports = router;

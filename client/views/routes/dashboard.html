@@ -1,44 +1,47 @@
 <div ng-controller = "DashboardController">
+    <md-content layout-padding>
+        <form id="search">
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label for="conditionEntry">Condition:</label>
+                    <!--<md-select ng-change="loadData()" ng-options="condition.name for condition in allconditions" ng-model="selectedCondition" id="conditionEntry"></md-select>-->
+                    <md-select ng-change="loadData()" ng-model="selectedCondition" id="conditionEntry">
 
-    <form id="search">
+                        <md-option ng-value="condition" ng-repeat="condition in allconditions">{{condition.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label for="startDate">Start Date:</label>
+                    <input ng-change="loadData()" ng-model="filterData.start_date" type="date" id="startDate" name="startDate">
+                </md-input-container>
+                <md-input-container flex>
+                    <label for="endDate">End Date:</label>
+                    <input ng-change="loadData()" ng-model="filterData.end_date" type="date" id="endDate" name="endDate">
+                </md-input-container>
+                <md-input-container flex>
+                    <div>
+                        <!--<md-button ng-click="loadData()" id="submitSearch" class="md-raised md-primary">Submit</md-button>-->
+                    </div>
+                </md-input-container>
+            </div>
+        </form>
 
-        <!--<label for="conditionEntry">Condition:</label>-->
-        <select ng-change="loadData()" ng-options="condition.name for condition in allconditions" ng-model="selectedCondition" id="conditionEntry"></select>
-
-        <!--<select ng-model="filterData.condition_id" id="conditionEntry" ng-init="filterData.condition_id">-->
-            <!--<option ng-repeat="condition in allconditions" value="{{condition.condition_id}}">{{condition.name}}</option>-->
-            <!-- -->
-        <!--</select>-->
-
-        <label for="startDate">Start Date:</label>
-        <input ng-model="filterData.start_date" type="date" id="startDate" name="startDate" placeholder="Enter Start Date:">
-        <label for="endDate">End Date:</label>
-        <input ng-model="filterData.end_date" type="date" id="endDate" name="endDate" placeholder="Enter End Date:">
-        <button ng-click="loadData()" id="submitSearch" class="btn btn-info">Submit</button>
-    </form>
-
-    <!--<md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="12px" md-gutter-gt-sm="8px">-->
-
-        <!--<md-grid-tile class="red" md-rowspan="3" md-colspan="2" md-colspan-sm="1">-->
-            <!--<div>SOMETHING</div>-->
+        <div layout="row">
+            <div flex flex-order="-1">
+                <fusioncharts class=""
+                              width="600"
+                              height="400"
+                              type="line"
+                              datasource="{{conditionChartData}}">
+                </fusioncharts>
+            </div>
+            <div flex flex-order="1">
+        <!--<md-grid-tile class="red" md-rowspan="2" md-colspan="3">-->
+            <div ui-grid="{data: medications}" class=""></div>
+            <!--<div ui-grid="gridOptions" class="medicationGrid"></div>-->
+            <!--<div ui-grid="{data: [{'b':'a'}]}" class=""></div>-->
         <!--</md-grid-tile>-->
-    <!--</md-grid-list>-->
-    <div layout="row">
-        <div flex flex-order="-1">
-            <fusioncharts class=""
-                          width="600"
-                          height="400"
-                          type="line"
-                          datasource="{{conditionChartData}}">
-            </fusioncharts>
+            </div>
         </div>
-        <div flex flex-order="1">
-    <!--<md-grid-tile class="red" md-rowspan="2" md-colspan="3">-->
-        <div ui-grid="{data: medications}" class=""></div>
-        <!--<div ui-grid="gridOptions" class="medicationGrid"></div>-->
-        <!--<div ui-grid="{data: [{'b':'a'}]}" class=""></div>-->
-    <!--</md-grid-tile>-->
-        </div>
-    </div>
-
+    </md-content>
 </div>

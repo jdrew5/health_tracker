@@ -3,12 +3,18 @@ myApp.controller('DailyDataController', ["$scope", "$http", "$localstorage", fun
     $scope.medications = [];
     $scope.conditions = [];
     $scope.selectedDate = {};
+    $scope.gridOptions = {};
 
     var patient = {patient_id: $localstorage.get('patient_id')};
+
+    if(!$scope.selectedDate.date) {
+        $scope.selectedDate.date =  new Date;
+    }
 
     $scope.getConditions = function() {
         $http.get('/dailydata/conditions', {params: patient}).then(function(response){
             $scope.conditions = response.data;
+
         });
     };
 

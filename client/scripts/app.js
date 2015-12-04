@@ -1,7 +1,7 @@
 var myApp = angular.module("myApp", ['ngRoute', 'ng-fusioncharts', 'ui.grid', 'ui.bootstrap',
     'ngMaterial']);
 
-myApp.config(['$routeProvider', function($routeProvider){
+myApp.config(['$routeProvider', '$mdThemingProvider', function($routeProvider, $mdThemingProvider){
     $routeProvider.
         when('/dashboard', {
             templateUrl: "/assets/views/routes/dashboard.html"
@@ -19,4 +19,9 @@ myApp.config(['$routeProvider', function($routeProvider){
         otherwise({
             redirectTo: 'dashboard'
         })
+    $mdThemingProvider.theme('default')
+        .primaryPalette('indigo')
+        .accentPalette('pink')
+        .warnPalette('red')
+        .backgroundPalette('grey');
 }]);

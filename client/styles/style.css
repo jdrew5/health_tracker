@@ -20,28 +20,10 @@ html {
     height: 100px;
 }
 
-.logo {
-    width: 77px;
-    height: 60px;
+table {
+    border-spacing: 5px;
 }
 
-.display-item {
-    float: left;
-}
-
-.patientDropDown {
-    float: right;
-}
-
-.logout {
-    float: right;
-}
-
-body {
-    background-color: #f9f2f4;
-}
-
-.blah {
-    color: red;
-    background-color: red;
+th, td {
+    padding: 5px 5px;
 }

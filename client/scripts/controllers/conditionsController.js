@@ -18,23 +18,22 @@ myApp.controller('ConditionsController', ["$scope", "$http", "$uibModal", "$loca
     $scope.loadData = function() {
 
         var promise = $scope.getConditions();
-
         promise.then(function() {
             $scope.gridOptions = {
                 columnDefs : [
                     {name: 'Action',
                         cellEditableCondition: false,
                         cellTemplate: '<button ng-click="grid.appScope.editCondition(row.entity)" ' +
-                        'id="editCondition" class="btn btn-xs btn-primary">Edit</button>' },
+                        'id="editCondition" class="btn btn-xs btn-primary">Edit</button>' +
+                        '<button ng-click="grid.appScope.deleteCondition(row.entity)" ' +
+                        'id="editCondition" class="btn btn-xs btn-danger">Delete</button>' },
                     { name: 'condition_id', displayName: 'Condition ID'},
                     { name: 'name', displayName: 'Name' },
                     { name: 'current_ind', displayName: 'Current Ind' },
                     { name: 'patient_id', displayName: 'Patient ID'}],
                 data: $scope.conditions
             };
-
         });
-
     };
 
     $scope.loadData();
@@ -45,7 +44,7 @@ myApp.controller('ConditionsController', ["$scope", "$http", "$uibModal", "$loca
             animation: $scope.animationsEnabled,
             templateUrl: '../assets/views/templates/addcondition.html',
             controller: 'AddConditionController',
-            size: 'lg',
+            size: 'sm',
             resolve: {
                 items: function () {
                     // if want to pass something to the modal, do it here and
@@ -73,7 +72,7 @@ myApp.controller('ConditionsController', ["$scope", "$http", "$uibModal", "$loca
             animation: $scope.animationsEnabled,
             templateUrl: '../assets/views/templates/editcondition.html',
             controller: 'EditConditionController',
-            size: 'lg',
+            size: 'sm',
             resolve: {
                 items: function () {
                     return condition;
@@ -89,6 +88,34 @@ myApp.controller('ConditionsController', ["$scope", "$http", "$uibModal", "$loca
             $scope.loadData();
             //$log.info('Modal dismissed at: ' + new Date());
         });
+    };
+
+    $scope.deleteCondition = function(condition){
+
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../assets/views/templates/deleteconfirm.html',
+            controller: 'DeleteConfirmController',
+            size: 'sm',
+            resolve: {
+                items: function () {
+                    // if want to pass something to the modal, do it here and
+                    // inject items in the modal controller
+                    return condition;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (returnValue) {
+            if(returnValue=="ok"){
+                $http.delete('/conditions/delete'+ condition.condition_id).then(function(response){
+                    $scope.loadData();
+                });
+            }
+        }, function () {
+            // cancelled confirm.  nothing to do.
+        });
+
     };
 
 }]);

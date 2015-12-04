@@ -1,10 +1,20 @@
-<div class="row">
-    <div ng-controller="NavController" class="col-md-12 text-center">
-        <ul class="nav nav-pills nav-justified">
-            <li ng-class="{ active: isActive('/dashboard')}"><a href="#dashboard">Dashboard</a></li>
-            <li ng-class="{ active: isActive('/dailydata')}"><a href="#dailydata">Daily Data</a></li>
-            <li ng-class="{ active: isActive('/medications')}"><a href="#medications">Medications</a></li>
-            <li ng-class="{ active: isActive('/conditions')}"><a href="#conditions">Conditions</a></li>
-        </ul>
+<!--<div class="row">-->
+    <!--<div ng-controller="NavController" class="col-md-12 text-center">-->
+        <!--<ul class="nav nav-pills nav-justified">-->
+            <!--<li ng-class="{ active: isActive('/dashboard')}"><a href="#dashboard">Dashboard</a></li>-->
+            <!--<li ng-class="{ active: isActive('/dailydata')}"><a href="#dailydata">Daily Data</a></li>-->
+            <!--<li ng-class="{ active: isActive('/medications')}"><a href="#medications">Medications</a></li>-->
+            <!--<li ng-class="{ active: isActive('/conditions')}"><a href="#conditions">Conditions</a></li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div layout="row" layout-padding class="bg-dark-blue nav-dark" layout-align="space-between center">
+    <div class="" ng-controller="NavController">
+        <md-button ng-click="go('/dashboard')" ng-class="{ 'md-accent': isActive('/dashboard')}" class="">Dashboard</md-button>
+        <md-button ng-click="go('/dailydata')" ng-class="{ 'md-accent': isActive('/dailydata')}" class="">Daily Data</md-button>
+        <md-button ng-click="go('/medications')" ng-class="{ 'md-accent': isActive('/medications')}" class="">Medications</md-button>
+        <md-button ng-click="go('/conditions')" ng-class="{ 'md-accent': isActive('/conditions')}" class="">Conditions</md-button>
     </div>
+
 </div>

@@ -9,14 +9,14 @@ myApp.controller('AddPatientController', ["$scope", "$http", "$uibModalInstance"
         $scope.insertPatient = function(patientData) {
             patientData.patient_id = patient.patient_id;
             $http.post('/patient/patients', patientData).then(function(response){
-                console.log("do something after inserting");
+                $uibModalInstance.close("ok");
             });
         };
 
         $scope.ok = function (patientData) {
             console.log("ok function ", patientData);
             $scope.insertPatient(patientData);
-            $uibModalInstance.close("ok");
+
         };
 
         $scope.cancel = function () {

@@ -30,7 +30,7 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
         var promise = $scope.getAllConditions();
 
         promise.then(function() {
-            // default to the first item in the drop down
+
             $scope.selectedCondition = $scope.allconditions[0];
             });
     };

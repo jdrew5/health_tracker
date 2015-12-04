@@ -22,8 +22,8 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", "$loc
                     {name: 'Action',
                         cellEditableCondition: false,
                         cellTemplate: '<button ng-click="grid.appScope.editMedication(row.entity)" ' +
-                        'id="editMedication" class="md-raised btn-xs md-primary">Edit</button>' +
-                        '<button class="md-raised brn-xs md-warn">Delete</button>' },
+                        'id="editMedication" class="btn btn-xs btn-primary">Edit</button>' +
+                        '<button ng-click="grid.appScope.deleteMedication(row.entity)" class="btn btn-xs btn-danger">Delete</button>' },
                     { name: 'medication_id', displayName: 'Medication ID'},
                     { name: 'name', displayName: 'Name'},
                     { name: 'suggested_dose', displayName: 'Suggested Dose' },
@@ -45,7 +45,7 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", "$loc
             animation: $scope.animationsEnabled,
             templateUrl: '../assets/views/templates/addmedication.html',
             controller: 'AddMedicationController',
-            size: 'lg',
+            size: 'sm',
             resolve: {
                 items: function () {
                     // if want to pass something to the modal, do it here and
@@ -71,7 +71,7 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", "$loc
             animation: $scope.animationsEnabled,
             templateUrl: '../assets/views/templates/editmedication.html',
             controller: 'EditMedicationController',
-            size: 'lg',
+            size: 'sm',
             resolve: {
                 items: function () {
                     return medication;
@@ -87,6 +87,35 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", "$loc
             $scope.loadData();
             //$log.info('Modal dismissed at: ' + new Date());
         });
+    };
+
+    $scope.deleteMedication = function(medication){
+
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: '../assets/views/templates/deleteconfirm.html',
+            controller: 'DeleteConfirmController',
+            size: 'sm',
+            resolve: {
+                items: function () {
+                    // if want to pass something to the modal, do it here and
+                    // inject items in the modal controller
+                    return medication;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (returnValue) {
+            if(returnValue=="ok"){
+                console.log("deleting med...", medication);
+                $http.delete('/medications/delete'+ medication.medication_id).then(function(response){
+                    $scope.loadData();;
+                });
+            }
+        }, function () {
+            // cancelled confirm.  nothing to do.
+        });
+
     };
 
 }]);

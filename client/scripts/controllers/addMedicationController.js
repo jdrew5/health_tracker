@@ -1,21 +1,20 @@
-myApp.controller('AddMedicationController', ["$scope", "$http", "$uibModalInstance",
-    function($scope, $http, $uibModalInstance){
+myApp.controller('AddMedicationController', ["$scope", "$http", "$uibModalInstance", "$localstorage",
+    function($scope, $http, $uibModalInstance, $localstorage){
 
     $scope.medications = [];
     $scope.medication = {};
 
-    var patient = {patient_id: 1};
+    var patient = {patient_id: $localstorage.get('patient_id')};
 
     $scope.insertMedication = function(medicationData) {
         medicationData.patient_id = patient.patient_id;
         $http.post('/medications/medications', medicationData).then(function(response){
-
+            $uibModalInstance.close("ok");
         });
     };
 
     $scope.ok = function (medicationData) {
         $scope.insertMedication(medicationData);
-        $uibModalInstance.close("ok");
     };
 
     $scope.cancel = function () {

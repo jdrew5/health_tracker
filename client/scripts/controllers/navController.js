@@ -3,4 +3,8 @@ myApp.controller('NavController', ['$scope','$location', function($scope, $locat
         //console.log($location.path());
         return viewLocation === $location.path();
     };
+
+    $scope.go = function ( path ) {
+        $location.path( path );
+    };
 }]);

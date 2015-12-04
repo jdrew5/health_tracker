@@ -4,7 +4,7 @@
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" aria-label="Settings">
-                    <md-icon md-svg-icon="./assets/images/menu.svg"></md-icon>
+                    <md-icon md-svg-icon="./assets/images/local_hospital.svg"></md-icon>
                 </md-button>
                 <!--<span><img src="./assets/images/LogoRed.jpeg" class="logo"></span>-->
 
@@ -12,9 +12,19 @@
                     <span>Health Tracker</span>
                 </h2>
                 <span flex></span>
-                <h2>
-                    <span>{{selectedPatient.name}}</span>
-                </h2>
+                <md-menu>
+                    <h2 ng-click="ctrl.openMenu($mdOpenMenu, $event)">
+                        <span>{{selectedPatient.name}}</span>
+                    </h2>
+                    <md-menu-content width="4">
+                        <md-menu-item ng-repeat="selectedPatient in patients" ng-model="selectedPatient">
+                            <md-button ng-click="changePatient(selectedPatient)">
+                                {{selectedPatient.name}}
+                            </md-button>
+
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
                 <md-menu>
                     <md-button class="md-icon-button" aria-label="More" ng-click="ctrl.openMenu($mdOpenMenu, $event)">
                         <md-icon md-svg-icon="./assets/images/more_vert.svg"></md-icon>
@@ -39,40 +49,19 @@
             </div>
         </md-toolbar>
 
-    <div class="container">
+    <!--<div class="container">-->
 
-        <img src = {{selectedPatient.image}} class="patientImg">
-        <div class="display-item">{{selectedPatient.patient_id}}</div>
-        <div class="display-item">{{selectedPatient.name}}</div>
-        <div class="display-item">{{selectedPatient.type}}</div>
-        <div class="display-item">{{selectedPatient.dob | date: "MM/dd/yyyy"}}</div>
+        <!--<img src = {{selectedPatient.image}} class="patientImg">-->
+        <!--<div class="display-item">{{selectedPatient.patient_id}}</div>-->
+        <!--<div class="display-item">{{selectedPatient.name}}</div>-->
+        <!--<div class="display-item">{{selectedPatient.type}}</div>-->
+        <!--<div class="display-item">{{selectedPatient.dob | date: "MM/dd/yyyy"}}</div>-->
 
-    </div>
+    <!--</div>-->
 
-    <form name="patientDropDown" class="patientDropDown">
-        <select ng-change="changePatient()" ng-options="patient.name for patient in patients" ng-model="selectedPatient" id="patient"></select>
-    </form>
+    <!--<form name="patientDropDown" class="patientDropDown">-->
+        <!--<select ng-change="changePatient()" ng-options="patient.name for patient in patients" ng-model="selectedPatient" id="patient"></select>-->
+    <!--</form>-->
 
-        <div layout="row" layout-padding class="bg-dark-blue nav-dark" layout-align="space-between center">
-            <div>
-                <md-button class="blah">Home</md-button>
-                <md-button>Item 1</md-button>
-                <md-button>Item 2</md-button>
-                <md-menu>
-                    <md-button md-menu-origin ng-click="$mdOpenMenu()">Help</md-button>
-                    <md-menu-content width="2">
-                        <md-menu-item>
-                            <md-button ng-class="blah">Help</md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button>About</md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-            </div>
-            <div class="nav-buttons">
-                <md-button class="md-raised md-accent active">My profile</md-button>
-                <md-button class="md-raised md-warn">Log Out</md-button>
-            </div>
 </div>
 

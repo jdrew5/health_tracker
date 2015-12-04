@@ -44,7 +44,7 @@ myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", "$localsto
             animation: $scope.animationsEnabled,
             templateUrl: '../assets/views/templates/addpatient.html',
             controller: 'AddPatientController',
-            size: 'lg',
+            size: 'sm',
             resolve: {
                 items: function () {
                     // if want to pass something to the modal, do it here and
@@ -70,7 +70,7 @@ myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", "$localsto
             animation: $scope.animationsEnabled,
             templateUrl: '../assets/views/templates/editpatient.html',
             controller: 'EditPatientController',
-            size: 'lg',
+            size: 'sm',
             resolve: {
                 items: function () {
                     return patient;
@@ -89,9 +89,10 @@ myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", "$localsto
         });
     };
 
-    $scope.changePatient = function() {
+    $scope.changePatient = function(selectedPatientObject) {
 
-        $localstorage.set('patient_id', $scope.selectedPatient.patient_id);
+        $localstorage.set('patient_id', selectedPatientObject.patient_id);
+        $scope.selectedPatient = selectedPatientObject;
 
         // reload the route
         $route.reload();

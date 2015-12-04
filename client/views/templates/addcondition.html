@@ -4,19 +4,20 @@
         <h2>Add Condition</h2>
     </div>
     <md-content layout-padding="">
-        <ng-form name="conditionForm" class="" novalidate>
+    <ng-form name="conditionForm" class="" novalidate>
 
-            <md-input-container class="md-block">
-                <label>Condition Name:</label>
-                <input type="text" class="form-control" name="addCondition" ng-model="condition.name" required>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>Current Indicator:</label>
-                <input type="checkbox" class="form-control" name="currentInd" ng-model="condition.current_ind" checked>
-            </md-input-container>
+        <md-input-container class="md-block">
 
-            <md-button class="md-raised md-primary" type="button" ng-click="ok(condition)" ng-disabled="conditionForm.$invalid">OK</md-button>
-            <md-button class="md-raised" type="button" ng-click="cancel()">Cancel</md-button>
-        </ng-form>
+            <label>Condition Name:</label>
+            <input type="text" class="form-control" name="addCondition" ng-model="condition.name" required>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Current Indicator:</label>
+            <input type="checkbox" class="form-control" name="currentInd" ng-model="condition.current_ind" checked>
+        </md-input-container>
+
+        <button class="btn btn-primary" type="button" ng-click="ok(condition)" ng-disabled="conditionForm.$invalid">OK</button>
+        <button class="btn btn-primary" type="button" ng-click="cancel()">Cancel</button>
+    </ng-form>
     </md-content>
 </div>

@@ -1,8 +1,10 @@
 <div ng-controller="ConditionsController">
+    <md-content layout-padding>
 
-    <button ng-click="addCondition()" id="addCondition" class="btn btn-info row">Add Condition</button>
+    <md-button ng-click="addCondition()" id="addCondition" class="md-raised md-primary">Add Condition</md-button>
 
     <!--<div ui-grid="{data: conditions}" class="conditionGrid"></div>-->
     <div ui-grid="gridOptions" class="conditionGrid"></div>
+        </md-content>
 
 </div>
