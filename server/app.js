@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+var path = require('path');
+
 var passport = require('./strategies/facebook');
 var session = require('express-session');
 
@@ -12,6 +14,8 @@ var dailydata = require('./routes/dailydata');
 var medications = require('./routes/medications');
 var conditions = require('./routes/conditions');
 var patient = require('./routes/patient');
+
+app.use(express.static(path.join(__dirname, './public')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

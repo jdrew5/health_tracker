@@ -22,6 +22,7 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
     $scope.getAllConditions = function() {
         return $http.get('/dashboard/allconditions', {params: $scope.filterData}).then(function(response){
             $scope.allconditions = response.data;
+            $scope.selectedCondition = $scope.allconditions[0];
         });
     };
 
@@ -30,9 +31,9 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
         var promise = $scope.getAllConditions();
 
         promise.then(function() {
-
-            $scope.selectedCondition = $scope.allconditions[0];
-            });
+            $scope.getMedications();
+            $scope.getConditions();
+        });
     };
 
     $scope.loadDropDown();
@@ -47,14 +48,8 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
         $scope.filterData.condition_id = $scope.selectedCondition.condition_id;
         $http.get('/dashboard/medications', {params: $scope.filterData}).then(function(response){
             $scope.medications = response.data;
-            //$scope.gridOptions = {
-            //    headerTemplate: './views/templates/med-grid-header-template.html',
-            //    data: $scope.medications
-            //};
         });
     };
-
-    $scope.getMedications();
 
     // gets condition entries for a condition between date range
     $scope.getConditions = function() {
@@ -100,7 +95,5 @@ myApp.controller('DashboardController', ["$scope", "$http", "$localstorage", fun
 
         });
     };
-
-    $scope.getConditions();
 
 }]);
