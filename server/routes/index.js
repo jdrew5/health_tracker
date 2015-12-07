@@ -40,7 +40,7 @@ router.get('/login', function(req, res, next){
     res.sendFile(path.join(__dirname, "../public/", file));
 });
 
-router.get('/*', isLoggedIn, function(req, res, next){
+router.get('/*', function(req, res, next){
     var file = req.params[0] || 'assets/views/index.html';
     res.sendFile(path.join(__dirname, "../public/", file));
 });
