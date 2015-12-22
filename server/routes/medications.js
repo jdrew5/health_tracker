@@ -61,7 +61,7 @@ router.post('/medications', function(req,res){
     //console.log("server medication data: ", addMedicationEntry);
 
     pg.connect(connectionString, function (err, client) {
-
+        client.on('drain', client.end.bind(client));
         client.query("INSERT INTO medication (name, suggested_dose, suggested_timing, current_ind, patient_id, uom) \
                     VALUES ($1, $2, $3, $4, $5, $6) RETURNING medication_id;",
             [addMedicationEntry.name, addMedicationEntry.suggested_dose,
@@ -95,7 +95,7 @@ router.put('/medications', function(req,res){
     //console.log(editMedicationEntry);
 
     pg.connect(connectionString, function (err, client) {
-
+        client.on('drain', client.end.bind(client));
         client.query("UPDATE medication \
                         SET name = $1, \
                         suggested_dose = $2, \
@@ -120,6 +120,7 @@ router.put('/medications', function(req,res){
 
 router.delete('/delete:id', function(req,res){
     pg.connect(connectionString, function (err, client) {
+        client.on('drain', client.end.bind(client));
         client.query("DELETE FROM medication WHERE medication_id = $1", [req.params.id],
             function (err, result) {
                 if (err) {

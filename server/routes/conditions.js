@@ -53,7 +53,7 @@ router.post('/conditions', function(req,res){
     };
 
     pg.connect(connectionString, function (err, client) {
-
+        client.on('drain', client.end.bind(client));
         client.query("INSERT INTO condition (name, current_ind, patient_id) \
                     VALUES ($1, $2, $3) RETURNING condition_id;",
             [addConditionEntry.name, addConditionEntry.current_ind,
@@ -84,7 +84,7 @@ router.put('/conditions', function(req,res){
     //console.log(editConditionEntry);
 
     pg.connect(connectionString, function (err, client) {
-
+        client.on('drain', client.end.bind(client));
         client.query("UPDATE condition \
                         SET name = $1, \
                         current_ind = $2, \
@@ -105,6 +105,7 @@ router.put('/conditions', function(req,res){
 
 router.delete('/delete:id', function(req,res){
     pg.connect(connectionString, function (err, client) {
+        client.on('drain', client.end.bind(client));
         client.query("DELETE FROM condition WHERE condition_id = $1", [req.params.id],
             function (err, result) {
                 if (err) {

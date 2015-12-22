@@ -90,7 +90,7 @@ router.post('/patients', function(req,res){
     //console.log("server medication data: ", addMedicationEntry);
 
     pg.connect(connectionString, function (err, client) {
-
+        client.on('drain', client.end.bind(client));
         client.query("INSERT INTO patient (name, type, dob, image) \
                     VALUES ($1, $2, $3, $4) RETURNING patient_id;",
             [addEntry.name, addEntry.type,
@@ -122,7 +122,7 @@ router.put('/patients', function(req,res){
     //console.log(editEntry);
 
     pg.connect(connectionString, function (err, client) {
-
+        client.on('drain', client.end.bind(client));
         client.query("UPDATE patient \
                         SET name = $1, \
                         type = $2, \

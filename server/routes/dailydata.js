@@ -55,7 +55,7 @@ router.post('/conditions', function(req,res){
     //console.log("server condition data: ", addConditionEntry);
 
     pg.connect(connectionString, function (err, client) {
-
+        client.on('drain', client.end.bind(client));
         client.query("INSERT INTO condition_entry (entry_date, patient_id, condition_id, value) \
                     VALUES ($1, $2, $3, $4) RETURNING condition_entry_id",
             [addConditionEntry.entry_date, addConditionEntry.patient_id, addConditionEntry.condition_id, addConditionEntry.add_value],
@@ -126,7 +126,7 @@ router.post('/medications', function(req,res){
     //console.log("server medication data: ", addMedicationEntry);
 
     pg.connect(connectionString, function (err, client) {
-
+        client.on('drain', client.end.bind(client));
         client.query("INSERT INTO medication_entry (entry_date, patient_id, medication_id, dose_given, uom) \
                     VALUES ($1, $2, $3, $4, $5) RETURNING medication_entry_id",
             [addMedicationEntry.entry_date, addMedicationEntry.patient_id,

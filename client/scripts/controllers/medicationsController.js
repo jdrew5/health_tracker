@@ -8,6 +8,7 @@ myApp.controller('MedicationsController', ["$scope", "$http", "$uibModal", "$loc
 
     $scope.getMedications = function() {
         return $http.get('/medications/medications', {params: patient}).then(function(response){
+            console.log("medications ", response.data);
             $scope.medications = response.data;
         });
     };
