@@ -4,6 +4,10 @@ myApp.controller('HeaderController', ["$scope", "$http", "$uibModal", "$localsto
     $scope.patients = [];
     $scope.selectedPatient = {};
 
+    if(!$localstorage.get('patient_id')){
+      $localstorage.set('patient_id', 1);
+    }
+
     this.openMenu = function($mdOpenMenu, ev) {
         originatorEv = ev;
         $mdOpenMenu(ev);
